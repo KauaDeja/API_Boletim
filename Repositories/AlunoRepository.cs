@@ -70,10 +70,22 @@ namespace API_Boletim.Repositories
             return a;
         }
 
-        public Aluno Deletar(Aluno id)
+        public Aluno Deletar(Aluno a)
         {
+            //Conectando
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "DELETE FROM Alunos WHERE IdAluno= @id";
+
+            cmd.Parameters.AddWithValue("@id", a.IdAluno);
             
-            throw new NotImplementedException();
+
+            // Será este comando o responsável por injetar os dados no banco efetivamente
+            cmd.ExecuteNonQuery();
+
+            //Desconectando
+            conexao.Desconectar();
+            return a;
         }
         
 
