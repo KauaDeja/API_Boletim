@@ -20,7 +20,23 @@ namespace API_Boletim.Repositories
 
         public Aluno Alterar(Aluno a)
         {
-            throw new NotImplementedException();
+            //Inicio da coenxao
+            cmd.Connection = conexao.Conectar();
+
+            //colocar os parametros 
+            cmd.CommandText = "UPDATE Aluno SET Nome= @nome, RA = @ra, Idade= @idade WHERE IdAluno= @id";
+
+            cmd.Parameters.AddWithValue("@nome", a.Nome);
+            cmd.Parameters.AddWithValue("@ra", a.RA);
+            cmd.Parameters.AddWithValue("@idade", a.Idade);
+            cmd.Parameters.AddWithValue("@id", a.IdAluno);
+
+
+            cmd.ExecuteNonQuery();
+            //encerrar conexao
+            conexao.Desconectar();
+
+            return a;
         }
 
         public Aluno BuscarPorId(int id)
