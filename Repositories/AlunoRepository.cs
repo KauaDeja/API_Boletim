@@ -18,7 +18,7 @@ namespace API_Boletim.Repositories
         SqlCommand cmd = new SqlCommand();
 
 
-        public Aluno Alterar(Aluno a)
+        public Aluno Alterar(int id, Aluno a)
         {
             //Inicio da coenxao
             cmd.Connection = conexao.Conectar();
@@ -29,7 +29,8 @@ namespace API_Boletim.Repositories
             cmd.Parameters.AddWithValue("@nome", a.Nome);
             cmd.Parameters.AddWithValue("@ra", a.RA);
             cmd.Parameters.AddWithValue("@idade", a.Idade);
-            cmd.Parameters.AddWithValue("@id", a.IdAluno);
+
+            cmd.Parameters.AddWithValue("@id", id);
 
 
             cmd.ExecuteNonQuery();
@@ -86,14 +87,14 @@ namespace API_Boletim.Repositories
             return a;
         }
 
-        public Aluno Deletar(Aluno a)
+        public void Excluir(int id)
         {
             //Conectando
             cmd.Connection = conexao.Conectar();
 
-            cmd.CommandText = "DELETE FROM Alunos WHERE IdAluno= @id";
-
-            cmd.Parameters.AddWithValue("@id", a.IdAluno);
+            //Casar os seguintes id
+            cmd.CommandText = "DELETE FROM Aluno WHERE IdAluno= @id";
+            cmd.Parameters.AddWithValue("@id", id);
             
 
             // Será este comando o responsável por injetar os dados no banco efetivamente
@@ -101,7 +102,7 @@ namespace API_Boletim.Repositories
 
             //Desconectando
             conexao.Desconectar();
-            return a;
+        
         }
         
 

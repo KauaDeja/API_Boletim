@@ -12,7 +12,7 @@ namespace API_Boletim.Interfaces
 
         List<Aluno> LerTodos();
         Aluno BuscarPorId(int id);
-        Aluno Alterar(Aluno a);
-        Aluno Deletar(Aluno a);
+        Aluno Alterar(int id, Aluno a);
+        void Excluir(int id);
     }
 }
